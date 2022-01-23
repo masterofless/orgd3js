@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: orgd3js
+  labels:
+    app: orgd3js
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: orgd3js
+  template:
+    metadata:
+      labels:
+        app: orgd3js
+    spec:
+      containers:
+      - name: orgd3js
+        image: orgd3js:latest
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: orgd3js-service
+spec:
+  selector:
+    app: orgd3js
+  ports:
+  - protocol: TCP
+    port: 8080
+    targetPort: 8080
